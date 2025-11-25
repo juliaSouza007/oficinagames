@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://mtdimhofa8dl"]
+
+[ext_resource type="Script" uid="uid://dr50glp4tqu6v" path="res://inimigo.gd" id="1_n76ui"]
+[ext_resource type="Texture2D" uid="uid://b800s1eyq3jnm" path="res://tile.png" id="2_7tpi2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ugawo"]
+size = Vector2(132, 42)
+
+[node name="Tijolo" type="Area2D"]
+script = ExtResource("1_n76ui")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-18.500015, -1.66893e-06)
+scale = Vector2(0.4128439, 0.36206892)
+texture = ExtResource("2_7tpi2")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-18, 0)
+shape = SubResource("RectangleShape2D_ugawo")

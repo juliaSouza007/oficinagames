@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://mtdimhofa8dl"]
+
+[ext_resource type="Script" uid="uid://dr50glp4tqu6v" path="res://inimigo.gd" id="1_n76ui"]
+
+[sub_resource type="Gradient" id="Gradient_ub5c3"]
+offsets = PackedFloat32Array(0.99333334, 1)
+colors = PackedColorArray(5.583167e-06, 0.31786412, 0.85866356, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lrxtp"]
+gradient = SubResource("Gradient_ub5c3")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ugawo"]
+size = Vector2(132, 42)
+
+[node name="Tijolo" type="Area2D"]
+script = ExtResource("1_n76ui")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-18.249996, 0)
+scale = Vector2(2.0390625, 0.671875)
+texture = SubResource("GradientTexture2D_lrxtp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-18, 0)
+shape = SubResource("RectangleShape2D_ugawo")

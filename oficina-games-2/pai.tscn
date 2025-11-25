@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3 uid="uid://ctugl5pcopm38"]
+
+[ext_resource type="Script" uid="uid://bcs6qojar4i8h" path="res://game.gd" id="1_emuy8"]
+[ext_resource type="Script" uid="uid://b3w5gnv37yddi" path="res://jogador.gd" id="1_o3qat"]
+[ext_resource type="Script" uid="uid://bgidcbfemcolt" path="res://geradorDeTijolo.gd" id="1_ugawo"]
+[ext_resource type="Script" uid="uid://dfu36okphb73u" path="res://bola.gd" id="2_ub5c3"]
+[ext_resource type="Texture2D" uid="uid://jl12h07h38hh" path="res://bola.png" id="4_fqivd"]
+[ext_resource type="Texture2D" uid="uid://beimuvk85e6cd" path="res://mario.png" id="4_ixybp"]
+[ext_resource type="PackedScene" uid="uid://mtdimhofa8dl" path="res://tijolo.tscn" id="5_emuy8"]
+[ext_resource type="Texture2D" uid="uid://cr1fxuoj03k0i" path="res://background.png" id="6_pj4q2"]
+[ext_resource type="FontFile" uid="uid://dp8e7piimjkhc" path="res://SuperMario256.ttf" id="8_q03cu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ub5c3"]
+size = Vector2(146, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrxtp"]
+size = Vector2(34, 31)
+
+[node name="Cena" type="Node2D" node_paths=PackedStringArray("labelPerdeu", "labelPontos")]
+position = Vector2(2, -3)
+script = ExtResource("1_emuy8")
+labelPerdeu = NodePath("HUD/LabelPerdeu")
+labelPontos = NodePath("HUD/LabelPontos")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(569.952, 329.4584)
+scale = Vector2(0.7642604, 0.6494953)
+texture = ExtResource("6_pj4q2")
+
+[node name="Jogador" type="Area2D" parent="."]
+position = Vector2(516, 503)
+script = ExtResource("1_o3qat")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Jogador"]
+position = Vector2(-0.4139557, 13.781235)
+scale = Vector2(0.012097677, 0.012109378)
+texture = ExtResource("4_ixybp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Jogador"]
+position = Vector2(0, 14)
+shape = SubResource("RectangleShape2D_ub5c3")
+
+[node name="Bola" type="Area2D" parent="."]
+position = Vector2(537, 407)
+script = ExtResource("2_ub5c3")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Bola"]
+position = Vector2(7.999995, -6.4999914)
+scale = Vector2(1.0967754, 1.0000002)
+texture = ExtResource("4_fqivd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bola"]
+position = Vector2(8, -6.5)
+shape = SubResource("RectangleShape2D_lrxtp")
+
+[node name="GeradorDeTijolo" type="Node2D" parent="."]
+script = ExtResource("1_ugawo")
+cena_tijolo = ExtResource("5_emuy8")
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LabelPerdeu" type="Label" parent="HUD"]
+visible = false
+layout_mode = 0
+offset_left = 358.0
+offset_top = 352.0
+offset_right = 808.0
+offset_bottom = 417.0
+theme_override_fonts/font = ExtResource("8_q03cu")
+theme_override_font_sizes/font_size = 47
+text = "Perdeu playboy!!"
+
+[node name="LabelPontos" type="Label" parent="HUD"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 598.0
+offset_right = 150.0
+offset_bottom = 618.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_q03cu")
+theme_override_font_sizes/font_size = 22
+text = "Pontos: "
+
+[connection signal="area_entered" from="Bola" to="Bola" method="_on_area_entered"]
+[connection signal="bateu_num_tijolo" from="Bola" to="." method="_on_bola_bateu_num_tijolo"]
